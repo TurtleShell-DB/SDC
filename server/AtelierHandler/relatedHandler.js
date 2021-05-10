@@ -1,6 +1,7 @@
 const axios = require('axios');
 const API_KEY = require('../config.js');
 const baseURL = require('./AtelierConfig.js');
+const productsURL = require('./AtelierConfig.js');
 
 const informationHandler = (productID, errorCB, successCB) => {
   const productData = {};
@@ -9,20 +10,21 @@ const informationHandler = (productID, errorCB, successCB) => {
   let reviewLength = 0;
   axios({
     method: 'get',
-    url: `${baseURL}/products/${productID}/related`,
+    url: `${productsURL}/products/${productID}/related`,
     headers: { Authorization: API_KEY },
   })
     .then((response) => {
+      console.log('product reviews to related products data from server is ', response.data);
       productData.related = {};
       productData.related.relatedIds = response.data;
       const relatedInformationRequests = productData.related.relatedIds.map((id) => axios({
         method: 'get',
-        url: `${baseURL}/products/${id}`,
+        url: `${productsURL}/products/${id}`,
         headers: { Authorization: API_KEY },
       }));
       const relatedStyleRequests = productData.related.relatedIds.map((id) => axios({
         method: 'get',
-        url: `${baseURL}/products/${id}/styles`,
+        url: `${productsURL}/products/${id}/styles`,
         headers: { Authorization: API_KEY },
       }));
       const relatedReviewRequests = productData.related.relatedIds.map((id) => axios({

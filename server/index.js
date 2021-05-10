@@ -4,6 +4,7 @@ const path = require('path');
 
 const app = express();
 const port = 3000;
+const axios = require('axios');
 const APIControllers = require('./APIControllers.js');
 
 app.use(express.urlencoded({ extended: false }));
@@ -23,11 +24,18 @@ app.get('/api/overview/:product_id', (req, res) => {
   APIControllers.overviewHandler(req.params.product_id, (err) => {
     res.status(404);
     res.end();
-  }, (productData) => res.send(productData));
+  }, (productData) => {
+    console.log('this sending back to client', productData);
+    res.send(productData);
+  });
+  // axios('http://localhost:4568/products/1/related')
+  //   .then((result) => console.log('new result is ', result.data))
+  //   .catch((err) => console.log(err));
 });
 
 app.get('/api/reviews/:product_id', (req, res) => {
   APIControllers.reviewHandler(req.params.product_id, (err) => {
+    console.log('hello from error inside index.server')
     res.status(404);
     res.end();
   }, (productData) => res.send(productData));

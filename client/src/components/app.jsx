@@ -38,12 +38,14 @@ class App extends React.Component {
       url: `/api/overview/${productID}`,
     })
       .then((responseData) => {
+        console.log('product data sent to client is ', responseData);
         this.setState({ data: responseData, show: true, overview: true });
         return $.ajax({
           url: `/api/reviews/${productID}`,
         });
       })
       .then((data) => {
+        console.log('product data from api reviews is ', data);
         const currentData = this.state.data;
         currentData.reviews = data.reviews;
         this.setState({
