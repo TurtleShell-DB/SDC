@@ -1,6 +1,7 @@
 const axios = require('axios');
 const API_KEY = require('../config.js');
 const baseURL = require('./AtelierConfig.js');
+const productUrl = require('./DatabaseConfig.js');
 
 const informationHandler = (productID, errorCB, successCB) => {
   const productData = {};
@@ -9,20 +10,21 @@ const informationHandler = (productID, errorCB, successCB) => {
   let reviewLength = 0;
   axios({
     method: 'get',
-    url: `${baseURL}/products/${productID}/related`,
+    url: `${productUrl}/products/${productID}/related`,
     headers: { Authorization: API_KEY },
   })
     .then((response) => {
       productData.related = {};
       productData.related.relatedIds = response.data;
+      console.log('this data from related handler is ', productData.related.relatedIds);
       const relatedInformationRequests = productData.related.relatedIds.map((id) => axios({
         method: 'get',
-        url: `${baseURL}/products/${id}`,
+        url: `${productUrl}/products/${id}`,
         headers: { Authorization: API_KEY },
       }));
       const relatedStyleRequests = productData.related.relatedIds.map((id) => axios({
         method: 'get',
-        url: `${baseURL}/products/${id}/styles`,
+        url: `${productUrl}/products/${id}/styles`,
         headers: { Authorization: API_KEY },
       }));
       const relatedReviewRequests = productData.related.relatedIds.map((id) => axios({
@@ -48,6 +50,7 @@ const informationHandler = (productID, errorCB, successCB) => {
       for (let i = infoLength + styleLength; i < infoLength + styleLength + reviewLength; i += 1) {
         productData.related.relatedReviews.push(response[i].data);
       }
+      // console.log('product data from related is ', productData);
       successCB(productData);
     })
     .catch((response) => {

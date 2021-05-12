@@ -156,6 +156,8 @@ class Carousel extends React.Component {
     const {
       CarouselWrapperDiv, CarouselDiv, OutfitWrapperDiv, OutfitCarouselDiv,
     } = styles;
+
+    console.log('sortedData is ', sortedData);
     return (
       <div>
         <CarouselWrapperDiv>
@@ -176,7 +178,7 @@ class Carousel extends React.Component {
                 category={relatedInformation.category}
                 defaultPrice={defaultStyle.original_price}
                 salePrice={defaultStyle.sale_price}
-                image={relatedStyles.results[0].photos[0].thumbnail_url}
+                image={relatedStyles.results[0].photos[0] === undefined ? null : relatedStyles.results[0].photos[0].thumbnail_url}
                 key={relatedInformation.id}
                 id={relatedInformation.id}
                 modalVisible={modalVisible}
@@ -211,7 +213,7 @@ class Carousel extends React.Component {
             <FirstOutfitCard
               overviewProduct={name}
               id={id}
-              image={results[0].photos[0].thumbnail_url}
+              image={results[0].photos[0] === undefined ? null : results[0].photos[0].thumbnail_url}
               addToOutfit={addToOutfit}
               refreshOutfit={refreshOutfit}
               clickHandler={clickHandler}

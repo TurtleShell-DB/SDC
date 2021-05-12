@@ -71,6 +71,7 @@ class App extends React.Component {
       })
       .then((data) => {
         const currentData = this.state.data;
+        console.log('data related sent to client is ', data.related);
         currentData.related = data.related;
         this.setState({
           data: currentData,
