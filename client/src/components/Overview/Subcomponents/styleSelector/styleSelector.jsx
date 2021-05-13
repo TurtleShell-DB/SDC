@@ -16,6 +16,7 @@ class StyleSelector extends React.Component {
   }
 
   render() {
+    console.log(this.props.data.styles.results);
     return (
       <styles.styleSelector>
         <h5>

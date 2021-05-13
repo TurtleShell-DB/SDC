@@ -24,12 +24,13 @@ class StyleSelectorItem extends React.Component {
   }
 
   render() {
+    console.log('this is data.styles.results into items ', this.props.item.photos);
     return (
       <styles.circle>
         <img
           alt=""
           className="border-button"
-          src={this.props.item.photos[0].thumbnail_url}
+          src={this.props.item.photos[0] === undefined ? null : this.props.item.photos[0].thumbnail_url}
           onClick={this.handleClick}
         />
       </styles.circle>

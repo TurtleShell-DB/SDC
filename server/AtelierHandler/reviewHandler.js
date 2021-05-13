@@ -1,6 +1,8 @@
 const axios = require('axios');
 const API_KEY = require('../config.js');
 const baseURL = require('./AtelierConfig.js');
+const productUrl = require('./DatabaseConfig.js');
+
 
 const reviewHandler = (productID, errorCB, successCB) => {
   const productData = {};
@@ -10,6 +12,7 @@ const reviewHandler = (productID, errorCB, successCB) => {
     headers: { Authorization: API_KEY },
   })
     .then((response) => {
+      console.log('this data from reviewHandler', response.data);
       productData.reviews = {};
       productData.reviews.reviews = response.data;
       return axios({
