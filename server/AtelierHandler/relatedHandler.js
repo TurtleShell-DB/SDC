@@ -16,7 +16,6 @@ const informationHandler = (productID, errorCB, successCB) => {
     .then((response) => {
       productData.related = {};
       productData.related.relatedIds = response.data;
-      console.log('this data from related handler is ', productData.related.relatedIds);
       const relatedInformationRequests = productData.related.relatedIds.map((id) => axios({
         method: 'get',
         url: `${productUrl}/products/${id}`,

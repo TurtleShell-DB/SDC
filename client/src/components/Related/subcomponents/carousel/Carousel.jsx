@@ -157,7 +157,6 @@ class Carousel extends React.Component {
       CarouselWrapperDiv, CarouselDiv, OutfitWrapperDiv, OutfitCarouselDiv,
     } = styles;
 
-    console.log('sortedData is ', sortedData);
     return (
       <div>
         <CarouselWrapperDiv>

@@ -6,23 +6,26 @@ const deserialize = (data, outfitData) => {
   const { outfitInformation, outfitStyles, outfitReviews } = outfitData;
   const newSort = [];
   const newOutfitSort = [];
+
   for (let i = 0; i < relatedIds.length; i += 1) {
-    for (let ii = 0; ii < relatedStyles[i].results.length; ii += 1) {
-      if (relatedStyles[i].results[ii]['default?'] === true) {
-        newSort.push({
-          relatedInformation: relatedInformation[i],
-          relatedStyles: relatedStyles[i],
-          defaultStyle: relatedStyles[i].results[ii],
-          reviews: relatedReviews[i],
-        });
-        break;
-      } else if (ii === relatedStyles[i].results.length - 1 && newSort[i] === undefined) {
-        newSort.push({
-          relatedInformation: relatedInformation[i],
-          relatedStyles: relatedStyles[i],
-          defaultStyle: relatedStyles[i].results[0],
-          reviews: relatedReviews[i],
-        });
+    if (relatedStyles[i]) {
+      for (let ii = 0; ii < relatedStyles[i].results.length; ii += 1) {
+        if (relatedStyles[i].results[ii]['default?'] === true) {
+          newSort.push({
+            relatedInformation: relatedInformation[i],
+            relatedStyles: relatedStyles[i],
+            defaultStyle: relatedStyles[i].results[ii],
+            reviews: relatedReviews[i],
+          });
+          break;
+        } else if (ii === relatedStyles[i].results.length - 1 && newSort[i] === undefined) {
+          newSort.push({
+            relatedInformation: relatedInformation[i],
+            relatedStyles: relatedStyles[i],
+            defaultStyle: relatedStyles[i].results[0],
+            reviews: relatedReviews[i],
+          });
+        }
       }
     }
   }
